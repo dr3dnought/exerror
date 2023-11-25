@@ -33,9 +33,8 @@ type ExtendedError struct {
 
 type ErrorMetaOpt func(*ExtendedError)
 
-func New(ctx context.Context, err error, opts ...ErrorMetaOpt) *ExtendedError {
+func New(err error, opts ...ErrorMetaOpt) *ExtendedError {
 	error := &ExtendedError{
-		ctx:   ctx,
 		error: err,
 		meta:  defaultMeta,
 	}
@@ -45,6 +44,12 @@ func New(ctx context.Context, err error, opts ...ErrorMetaOpt) *ExtendedError {
 	}
 
 	return error
+}
+
+func (e *ExtendedError) WithContext(ctx context.Context) *ExtendedError {
+	e.ctx = ctx
+
+	return e
 }
 
 func (e *ExtendedError) Error() error {
