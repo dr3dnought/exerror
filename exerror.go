@@ -6,12 +6,15 @@ type ErrorMeta struct {
 	IsImportant bool
 	IsTemporary bool
 
+	Message *string
+
 	fields map[string]any
 }
 
 var defaultMeta = ErrorMeta{
 	IsImportant: false,
 	IsTemporary: false,
+	Message:     nil,
 	fields:      nil,
 }
 
@@ -66,4 +69,8 @@ func Important() ErrorMetaOpt {
 
 func Temporary() ErrorMetaOpt {
 	return func(e *ExtendedError) { e.meta.IsTemporary = true }
+}
+
+func Message(msg string) ErrorMetaOpt {
+	return func(e *ExtendedError) { e.meta.Message = &msg }
 }
