@@ -34,6 +34,8 @@ type ExtendedError struct {
 	meta ErrorMeta
 }
 
+var Nil = &ExtendedError{}
+
 type ErrorMetaOpt func(*ExtendedError)
 
 func New(err error, opts ...ErrorMetaOpt) *ExtendedError {
