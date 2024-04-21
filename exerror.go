@@ -65,6 +65,14 @@ func (e *ExtendedError) Meta() ErrorMeta {
 	return e.meta
 }
 
+func (e *ExtendedError) Message() string {
+	if e.Meta().Message == nil {
+		return ""
+	}
+
+	return *e.Meta().Message
+}
+
 func Important() ErrorMetaOpt {
 	return func(e *ExtendedError) { e.meta.IsImportant = true }
 }
